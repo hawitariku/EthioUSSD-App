@@ -10,44 +10,84 @@ const tintColorDark = '#fff';
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    primary: '#2563EB',       // Blue 600
+    text: '#0F172A',          // Slate 900
+    textSecondary: '#64748B', // Slate 500
+    background: '#F8FAFC',    // Slate 50
+    card: '#FFFFFF',
+    tint: '#2563EB',
+    icon: '#64748B',
+    border: '#E2E8F0',        // Slate 200
+    success: '#10B981',
+    error: '#EF4444',
+    tabIconDefault: '#94A3B8',
+    tabIconSelected: '#2563EB',
+    inputBackground: '#F1F5F9',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    primary: '#3B82F6',       // Blue 500
+    text: '#F8FAFC',          // Slate 50
+    textSecondary: '#94A3B8', // Slate 400
+    background: '#0F172A',    // Slate 900
+    card: '#1E293B',          // Slate 800
+    tint: '#3B82F6',
+    icon: '#94A3B8',
+    border: '#334155',        // Slate 700
+    success: '#34D399',
+    error: '#F87171',
+    tabIconDefault: '#64748B',
+    tabIconSelected: '#3B82F6',
+    inputBackground: '#1E293B',
   },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+export const Spacing = {
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
+  xxl: 48,
+};
+
+export const BorderRadius = {
+  sm: 8,
+  md: 16,
+  lg: 24,
+  full: 9999,
+};
+
+export const Shadows = {
+  sm: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
   },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
+  md: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
   },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+  lg: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 15,
+    elevation: 10,
   },
-});
+};
+
+export const Fonts = {
+  regular: Platform.select({ ios: 'System', android: 'Roboto', default: 'sans-serif' }),
+  bold: Platform.select({ ios: 'System', android: 'Roboto', default: 'sans-serif-bold' }),
+  medium: Platform.select({ ios: 'System', android: 'Roboto', default: 'sans-serif-medium' }),
+  // Keep existing selectors if needed, but 'bold' and 'regular' are what tsc demands
+  sans: Platform.select({ ios: 'system-ui', default: 'sans-serif' }),
+  serif: Platform.select({ ios: 'ui-serif', default: 'serif' }),
+  mono: Platform.select({ ios: 'ui-monospace', default: 'monospace' }),
+  rounded: Platform.select({ ios: 'ui-rounded', default: 'sans-serif-rounded' }),
+};

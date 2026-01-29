@@ -1,25 +1,27 @@
 {
   "expo": {
-    "name": "EthioUSSDApp-Expo",
-    "slug": "EthioUSSDApp-Expo",
+    "name": "Ethio USSD Companion",
+    "slug": "ethio-ussd-companion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ethioussdappexpo",
+    "scheme": "ethioussd",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ethioussd.companion",
+      "permissions": [
+        "CALL_PHONE"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      }
     },
     "web": {
       "output": "static",
@@ -38,11 +40,16 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-localization",
+      "./plugins/withUSSDAutomation"
     ],
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "374327de-7429-4e16-86ab-b4ae84a8dae8"
+      }
     }
   }
 }
