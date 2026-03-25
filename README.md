@@ -1,83 +1,150 @@
 # 🇪🇹 Ethio USSD Companion
 
-**Ethio USSD Companion** is a premium, secure, and localized mobile application designed to simplify mobile banking and telecom interactions in Ethiopia. It provides a unified, automated interface for dialing complex USSD codes while maintaining the highest standards of security and user experience.
+**Version 2.1.0** - A premium, secure mobile application that simplifies mobile banking and telecom USSD interactions in Ethiopia.
 
-![App Dashboard](c:/Users/hp/Desktop/ussd/EthioUSSDApp-Expo/assets/images/icon.png)
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen)](https://github.com/hawitariku/EthioUSSD-App/releases/latest)
+[![Version](https://img.shields.io/badge/version-2.1.0-blue)](https://github.com/hawitariku/EthioUSSD-App/releases)
+[![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
 
-## ✨ Major Features
+---
 
-### 🏦 Intelligent Bank Launcher (v2.0)
-- **Massive Directory:** Support for 15+ Ethiopian banks and telecom services (CBE, Dashen, Awash, Abyssinia, TeleBirr, etc.).
-- **Verified Templates:** Pre-configured USSD strings for Balance, Transfer, Airtime, and more.
-- **Form-Based Input:** Human-friendly fields for account numbers and amounts—no more memorizing complex strings.
+## ✨ Features
 
-### 🤖 Native Automation Engine (Phase 15+)
-- **Auto USSD Reading:** Uses an Android Accessibility Service to automatically read USSD response overlays.
-- **In-App Receipts:** Captured responses are parsed and displayed as premium receipt cards directly inside the app.
-- **Privacy-First:** All reading happens locally; no data ever leaves your device.
+### 🔔 Auto Update Checker (New in v2.1.0)
+- Automatic update notifications
+- Manual update check from Settings
+- Direct download links to new releases
 
-### 🌍 Multi-Language Support (v2.0)
-- **Localized UI:** Full support for **English**, **Amharic (አማርኛ)**, and **Afaan Oromoo**.
-- **Settings Toggle:** Easily switch languages on the fly without restarting the app.
+### � 22 Supported Banks & Services
+- Commercial Bank of Ethiopia (CBE)
+- Dashen Bank
+- telebirr (Ethio Telecom)
+- M-PESA (Safaricom)
+- Awash Bank, Abyssinia, Wegagen, Hibret
+- And 14 more Ethiopian banks!
 
-### 📈 Usage Analytics & History
-- **Smart Dashboard:** Visualize your transaction patterns with the "Usage Visualizer" bar chart.
-- **Unified History:** Track all your USSD interactions in a searchable, filterable list.
-- **CSV Export:** Export your history to spreadsheet format for person accounting.
+### 🌍 Multi-Language Support
+- **English** - Full interface
+- **አማርኛ (Amharic)** - Complete translation
+- **Afaan Oromoo (Oromo)** - Full support
 
-### 🔒 Advanced Security
-- **Biometric Protection:** Secure your financial history with Fingerprint/FaceID via `expo-local-authentication`.
-- **Launcher Mode:** The app prepares the USSD code, but you initiate the final dial in the native phone app, ensuring your PIN remains private.
-- **Safe Fallback:** Resilience built-in for devices without biometric hardware.
+### 🎨 Modern UI/UX
+- Beautiful bank logos with brand colors
+- Responsive dial button with phone icon
+- Smooth navigation and animations
+- Dark mode support
 
-### 🎨 Premium UI/UX
-- **Modern Design:** Vibrant gradients, glassmorphism, and haptic feedback.
-- **Dark Mode:** Full system-adaptive dark theme for premium nighttime usage.
+### 🔒 Privacy & Security
+- No data collection or tracking
+- All data stored locally on device
+- Your PIN never leaves the system dialer
+- Open source and transparent
+
+## � Download
+
+**[Download Latest APK (v2.1.0)](https://github.com/hawitariku/EthioUSSD-App/releases/latest)**
+
+### Installation:
+1. Download the APK file
+2. Open on your Android device
+3. Allow installation from "Unknown Sources" if prompted
+4. Install and enjoy!
+
+### Requirements:
+- Android 5.0 (API 21) or higher
+- CALL_PHONE permission for USSD dialing
+
+---
 
 ## 🛠 Tech Stack
 
-- **Framework:** [Expo SDK 52](https://expo.dev/) (Managed Workflow)
-- **Language:** TypeScript / Java (Native Plugin)
-- **Native Bridge:** Custom Expo Config Plugin for Android Accessibility Service
-- **Authentication:** `expo-local-authentication`
-- **Analytics:** Custom D3-based Usage Visualizer
-- **i18n:** `i18n-js` (v3) with `expo-localization`
-- **Storage:** `@react-native-async-storage/async-storage`
+- **Framework:** Expo SDK 52
+- **Language:** TypeScript
+- **UI:** React Native with custom premium components
+- **i18n:** i18n-js with expo-localization
+- **Storage:** AsyncStorage
+- **Authentication:** expo-local-authentication
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (Late LTS)
-- Expo Go (for development)
-- EAS CLI (for building native APKs)
+## 🚀 For Developers
 
 ### Setup
-1. **Clone & Install**
-   ```bash
-   git clone https://github.com/wish628/EthioUSSD-App.git
-   cd EthioUSSD-App
-   npm install
-   ```
+```bash
+git clone https://github.com/hawitariku/EthioUSSD-App.git
+cd EthioUSSDApp-Expo
+npm install
+```
 
-2. **Run Development Server**
-   ```bash
-   npx expo start
-   ```
+### Run Development
+```bash
+npx expo start
+```
 
-3. **Generating the APK (Native Features)**
-   Since this app uses a custom Native Automation Engine, you must generate a Development Client or a Preview APK:
-   ```bash
-   npx eas build --platform android --profile preview
-   ```
+### Build APK
+```bash
+npx eas build --platform android --profile preview
+```
 
-## 🛡 Security & Privacy
-This application is built with a **Security-First** philosophy:
-1. **No Backend:** Your transaction history is stored locally on your device only.
-2. **PIN Protection:** The app never asks for or stores your bank PIN. USSD sessions requiring a PIN are handled by the native Android telephony system.
-3. **Accessibility Privacy:** The Accessibility Service is strictly limited to reading USSD overlays and only activates during active dial sessions.
+### Build for Production
+```bash
+npx eas build --platform android --profile production
+```
 
-## 📜 License
-This project is open-source and available under the [MIT License](LICENSE).
+## � What's New in v2.1.0
+
+- ✅ Auto update checker with GitHub integration
+- ✅ Fixed back button responsiveness
+- ✅ Improved dial button with phone icon
+- ✅ Fixed language selector (Amharic & Oromo text visible)
+- ✅ Better translations for all languages
+- ✅ Updated About screen with developer info
+- ✅ Removed non-working features
+- ✅ Bug fixes and performance improvements
+
+[View Full Changelog](IMPROVEMENTS.md)
 
 ---
-*Developed with ❤️ for the Ethiopian Fintech Community.*
+
+## 🛡 Security & Privacy
+
+- **No Backend:** All data stored locally on your device
+- **No Tracking:** Zero analytics or data collection
+- **PIN Security:** Your PIN never leaves the system dialer
+- **Open Source:** Transparent and auditable code
+
+---
+
+## 📜 License
+
+MIT License - see [LICENSE](LICENSE) file for details
+
+Copyright © 2026 Hawi Tariku
+
+---
+
+## 👨‍💻 Developer
+
+**Hawi Tariku**  
+Full Stack Developer
+
+- GitHub: [@hawitariku](https://github.com/hawitariku)
+- Repository: [EthioUSSD-App](https://github.com/hawitariku/EthioUSSD-App)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📞 Support
+
+For issues or questions:
+- Open an issue on [GitHub](https://github.com/hawitariku/EthioUSSD-App/issues)
+- Check the [documentation](UPDATE_CHECKER_GUIDE.md)
+
+---
+
+---
+
+**© 2026 Hawi Tariku. All rights reserved.**

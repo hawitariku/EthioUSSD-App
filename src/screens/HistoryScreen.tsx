@@ -189,7 +189,7 @@ const HistoryScreen = () => {
                         <View style={styles.emptyContainer}>
                             <Ionicons name="receipt-outline" size={64} color={theme.icon + '40'} />
                             <Text style={[styles.emptyText, { color: theme.textSecondary }]}>
-                                {searchQuery || activeFilter !== 'All' ? 'No matching results.' : 'Your transaction history will appearing here.'}
+                                {searchQuery || activeFilter !== 'All' ? 'No matching transactions found.' : 'No transaction history yet. Start using USSD services to see your history here.'}
                             </Text>
                         </View>
                     ) : (

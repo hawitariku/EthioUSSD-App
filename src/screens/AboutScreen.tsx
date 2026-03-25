@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, useColorScheme, Image, TouchableOpacity, Linking, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, useColorScheme, Image, TouchableOpacity, Linking, Dimensions, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors, Spacing, Fonts, BorderRadius } from '../../constants/theme';
 import { PremiumCard } from '../components/PremiumCard';
@@ -35,6 +35,17 @@ export const AboutScreen: React.FC = () => {
                 </PremiumCard>
 
                 <PremiumCard style={styles.card}>
+                    <Text style={[styles.sectionTitle, { color: theme.text }]}>Developer</Text>
+                    <View style={styles.developerRow}>
+                        <Ionicons name="person-circle" size={40} color={theme.primary} />
+                        <View style={{ flex: 1 }}>
+                            <Text style={[styles.developerName, { color: theme.text }]}>Hawi Tariku</Text>
+                            <Text style={[styles.developerRole, { color: theme.textSecondary }]}>Full Stack Developer</Text>
+                        </View>
+                    </View>
+                </PremiumCard>
+
+                <PremiumCard style={styles.card}>
                     <Text style={[styles.sectionTitle, { color: theme.text }]}>Security First</Text>
                     <View style={styles.securityRow}>
                         <Ionicons name="shield-checkmark" size={24} color={theme.success} />
@@ -51,18 +62,24 @@ export const AboutScreen: React.FC = () => {
                 </PremiumCard>
 
                 <View style={styles.links}>
-                    <TouchableOpacity style={styles.linkRow} onPress={() => Linking.openURL('https://github.com/antigravity')}>
+                    <TouchableOpacity style={styles.linkRow} onPress={() => Linking.openURL('https://github.com/hawitariku/EthioUSSD-App')}>
                         <Ionicons name="logo-github" size={20} color={theme.textSecondary} />
                         <Text style={[styles.linkText, { color: theme.textSecondary }]}>GitHub</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.linkRow} onPress={() => Linking.openURL('https://example.com/privacy')}>
+                    <TouchableOpacity style={styles.linkRow} onPress={() => {
+                        Alert.alert(
+                            'Privacy Policy',
+                            'This app does not collect, store, or transmit any personal data to external servers. All transaction history is stored locally on your device. Your PIN and banking credentials are never accessed or stored by this application. USSD operations are handled directly by your mobile carrier and bank.',
+                            [{ text: 'OK' }]
+                        );
+                    }}>
                         <Ionicons name="document-text-outline" size={20} color={theme.textSecondary} />
                         <Text style={[styles.linkText, { color: theme.textSecondary }]}>Privacy Policy</Text>
                     </TouchableOpacity>
                 </View>
 
                 <Text style={[styles.footer, { color: theme.textSecondary + '60' }]}>
-                    © 2024 Antigravity AI. All rights reserved.
+                    © 2026 Hawi Tariku. All rights reserved.
                 </Text>
             </View>
         </ScrollView>
@@ -131,6 +148,20 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: Fonts.medium,
         flex: 1,
+    },
+    developerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 15,
+    },
+    developerName: {
+        fontSize: 18,
+        fontFamily: Fonts.bold,
+    },
+    developerRole: {
+        fontSize: 14,
+        fontFamily: Fonts.medium,
+        marginTop: 2,
     },
     links: {
         flexDirection: 'row',

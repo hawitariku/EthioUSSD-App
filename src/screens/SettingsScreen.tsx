@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Alert, ScrollView, useColorScheme } from 'react-native';
+import { View, Text, StyleSheet, Alert, ScrollView, useColorScheme, TouchableOpacity } from 'react-native';
 import { clearHistory } from '../utils/historyManager';
 import { PremiumButton } from '../components/PremiumButton';
 import { PremiumCard } from '../components/PremiumCard';
-import { Colors, Spacing } from '../../constants/theme';
+import { Colors, Spacing, Fonts } from '../../constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { i18n, setLanguage } from '../i18n/translations';
 import USSDModule, { subscribeToUSSD } from '../modules/USSDModule';
@@ -11,6 +11,8 @@ import { useFocusEffect } from 'expo-router';
 import { ReceiptModal } from '../components/ReceiptModal';
 import { parseUSSDMessage, ParsedUSSD } from '../utils/ussdParser';
 import { useRouter } from 'expo-router';
+import { checkForUpdates, getCurrentVersion, getUpdateCheckStatus } from '../utils/updateChecker';
+import { Ionicons } from '@expo/vector-icons';
 
 const SettingsScreen = () => {
     const router = useRouter();
@@ -19,6 +21,8 @@ const SettingsScreen = () => {
     const [accessibilityEnabled, setAccessibilityEnabled] = React.useState(false);
     const [receiptData, setReceiptData] = React.useState<ParsedUSSD | null>(null);
     const [showReceipt, setShowReceipt] = React.useState(false);
+    const [checkingUpdate, setCheckingUpdate] = React.useState(false);
+    const [lastUpdateCheck, setLastUpdateCheck] = React.useState<Date | null>(null);
 
     const checkAccessibility = async () => {
         try {
@@ -27,6 +31,18 @@ const SettingsScreen = () => {
         } catch (e) {
             console.warn(e);
         }
+    };
+
+    const loadUpdateStatus = async () => {
+        const status = await getUpdateCheckStatus();
+        setLastUpdateCheck(status.lastCheck);
+    };
+
+    const handleCheckForUpdates = async () => {
+        setCheckingUpdate(true);
+        await checkForUpdates(true, false); // Force check, not silent
+        await loadUpdateStatus();
+        setCheckingUpdate(false);
     };
 
     React.useEffect(() => {
@@ -42,6 +58,7 @@ const SettingsScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
             checkAccessibility();
+            loadUpdateStatus();
         }, [])
     );
 
@@ -101,25 +118,49 @@ const SettingsScreen = () => {
 
             <PremiumCard style={styles.section}>
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>{i18n.t('language')}</Text>
-                <View style={{ flexDirection: 'row', gap: 10 }}>
-                    <PremiumButton
-                        title="English"
+                <View style={{ gap: 10 }}>
+                    <TouchableOpacity
                         onPress={() => changeLanguage('en')}
-                        variant={i18n.locale.startsWith('en') ? 'primary' : 'secondary'}
-                        style={{ flex: 1 }}
-                    />
-                    <PremiumButton
-                        title="አማርኛ"
+                        style={[
+                            styles.languageButton,
+                            { backgroundColor: i18n.locale.startsWith('en') ? theme.primary : theme.inputBackground }
+                        ]}
+                    >
+                        <Text style={[
+                            styles.languageButtonText,
+                            { color: i18n.locale.startsWith('en') ? '#fff' : theme.text }
+                        ]}>
+                            English
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         onPress={() => changeLanguage('am')}
-                        variant={i18n.locale.startsWith('am') ? 'primary' : 'secondary'}
-                        style={{ flex: 1 }}
-                    />
-                    <PremiumButton
-                        title="Af. Oromoo"
+                        style={[
+                            styles.languageButton,
+                            { backgroundColor: i18n.locale.startsWith('am') ? theme.primary : theme.inputBackground }
+                        ]}
+                    >
+                        <Text style={[
+                            styles.languageButtonText,
+                            { color: i18n.locale.startsWith('am') ? '#fff' : theme.text }
+                        ]}>
+                            አማርኛ (Amharic)
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         onPress={() => changeLanguage('om')}
-                        variant={i18n.locale.startsWith('om') ? 'primary' : 'secondary'}
-                        style={{ flex: 1 }}
-                    />
+                        style={[
+                            styles.languageButton,
+                            { backgroundColor: i18n.locale.startsWith('om') ? theme.primary : theme.inputBackground }
+                        ]}
+                    >
+                        <Text style={[
+                            styles.languageButtonText,
+                            { color: i18n.locale.startsWith('om') ? '#fff' : theme.text }
+                        ]}>
+                            Afaan Oromoo (Oromo)
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </PremiumCard>
 
@@ -166,6 +207,28 @@ const SettingsScreen = () => {
 
             <PremiumCard style={styles.section}>
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>{i18n.t('about')}</Text>
+                <View style={styles.versionRow}>
+                    <View style={{ flex: 1 }}>
+                        <Text style={[styles.versionLabel, { color: theme.textSecondary }]}>Current Version</Text>
+                        <Text style={[styles.versionText, { color: theme.text }]}>v{getCurrentVersion()}</Text>
+                        {lastUpdateCheck && (
+                            <Text style={[styles.lastCheckText, { color: theme.icon }]}>
+                                Last checked: {lastUpdateCheck.toLocaleDateString()}
+                            </Text>
+                        )}
+                    </View>
+                    <TouchableOpacity
+                        onPress={handleCheckForUpdates}
+                        disabled={checkingUpdate}
+                        style={[styles.updateButton, { backgroundColor: theme.primary }]}
+                    >
+                        <Ionicons 
+                            name={checkingUpdate ? "sync" : "cloud-download-outline"} 
+                            size={20} 
+                            color="#fff" 
+                        />
+                    </TouchableOpacity>
+                </View>
                 <PremiumButton
                     title="Learn More About App"
                     onPress={() => router.push('/about' as any)}
@@ -197,7 +260,7 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 28,
-        fontWeight: '800',
+        fontFamily: Fonts.bold,
         marginBottom: Spacing.xl,
     },
     section: {
@@ -205,7 +268,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: '700',
+        fontFamily: Fonts.bold,
         marginBottom: Spacing.md,
     },
     button: {
@@ -214,6 +277,50 @@ const styles = StyleSheet.create({
     aboutText: {
         fontSize: 16,
         marginBottom: Spacing.xs,
+    },
+    languageButton: {
+        padding: 16,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    languageButtonText: {
+        fontSize: 16,
+        fontFamily: Fonts.bold,
+    },
+    versionRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: Spacing.md,
+        padding: Spacing.md,
+        borderRadius: 12,
+    },
+    versionLabel: {
+        fontSize: 12,
+        fontFamily: Fonts.medium,
+        marginBottom: 4,
+    },
+    versionText: {
+        fontSize: 20,
+        fontFamily: Fonts.bold,
+    },
+    lastCheckText: {
+        fontSize: 10,
+        fontFamily: Fonts.regular,
+        marginTop: 4,
+    },
+    updateButton: {
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
 });
 

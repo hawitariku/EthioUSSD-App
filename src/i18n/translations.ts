@@ -1,8 +1,8 @@
-import i18n from 'i18n-js';
+import { I18n } from 'i18n-js';
 import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-i18n.translations = {
+const translations = {
     en: {
         welcome: 'Welcome',
         search_placeholder: 'Search bank...',
@@ -32,10 +32,10 @@ i18n.translations = {
         no_history: 'No transactions yet.',
         no_favorites: 'No favorites yet.',
         version: 'Version',
-        developed_by: 'Developed by Antigravity',
+        developed_by: 'Developed by',
         select_bank: 'Select Bank/Service',
-        ready_to_call: 'Ready to dial the service code?',
-        launch_button: 'Launch Dialer',
+        ready_to_call: 'Ready to dial?',
+        launch_button: 'Dial Now',
         total_dials: 'Total Dials',
         most_used: 'Most Used',
         search_history: 'Search transactions...',
@@ -56,36 +56,42 @@ i18n.translations = {
         favorites: 'የተወደዱ',
         all_banks: 'ሁሉም ባንኮች',
         clear_history: 'ታሪክን አጽዳ',
-        language: 'ቋቋ',
-        about: 'ስለ እኛ',
+        language: 'ቋንቋ',
+        about: 'ስለ መተግበሪያው',
         security: 'ደህንነት',
-        biometric_lock: 'ባዮሜትሪክ ቁልፍ',
-        unlock_with_biometrics: 'በባዮሜትሪክ ይክፈቱ',
-        unlock_app: 'መተግበሪያውን ይክፈቱ',
+        biometric_lock: 'የባዮሜትሪክ መቆለፊያ',
+        unlock_with_biometrics: 'በባዮሜትሪክ ክፈት',
+        unlock_app: 'መተግበሪያውን ክፈት',
         locked: 'ተቆልፏል',
-        authenticate_msg: 'የባንክ ልውውጦችን ለማግኘት እባክዎ ማንነትዎን ያረጋግጡ።',
-        dial_root: 'መነሻ ኮድን ደውል',
-        dial_full: 'ሙሉ ኮድን ደውል',
-        enter_amount: 'ገንዘብ መጠን ያስገቡ',
-        enter_account: 'ሂሳብ ቁጥር ያስገቡ',
+        authenticate_msg: 'የባንክ ግብይቶችዎን ለማግኘት እባክዎ ማንነትዎን ያረጋግጡ።',
+        dial_root: 'ዋና ኮድ ደውል',
+        dial_full: 'ሙሉ ኮድ ደውል',
+        enter_amount: 'መጠን ያስገቡ',
+        enter_account: 'የሂሳብ ቁጥር ያስገቡ',
         enter_pin: 'ፒን ያስገቡ',
         save: 'አስቀምጥ',
         cancel: 'ሰርዝ',
-        transaction_saved: 'ልውውይ ተቀምጧል',
+        transaction_saved: 'ግብይት ተቀምጧል',
         history_cleared: 'ታሪክ ተሰርዟል',
-        confirm_clear: 'ሁሉንም ታሪክ ማጥፋት ይፈልጋሉ?',
-        no_history: 'ምንም ታሪክ የለም።',
-        no_favorites: 'ምንም የተወደዱ የሉም።',
+        confirm_clear: 'ሁሉንም ታሪክ መሰረዝ ይፈልጋሉ?',
+        no_history: 'ገና ምንም ግብይት የለም።',
+        no_favorites: 'ገና ምንም የተወደዱ የሉም።',
         version: 'ስሪት',
-        developed_by: 'በ Antigravity የተሰራ',
+        developed_by: 'የተሰራው በ',
         select_bank: 'ባንክ ወይም አገልግሎት ይምረጡ',
-        ready_to_call: 'አገልግሎቱን ለመደወል ዝግጁ ነዎት?',
-        launch_button: 'ደውል',
-        total_dials: 'ጠቅላላ ሙከራዎች',
-        most_used: 'ብዙ ጥቅም ላይ የዋለ',
-        search_history: 'ልውውጦችን ይፈልጉ...',
+        ready_to_call: 'ለመደወል ዝግጁ ነዎት?',
+        launch_button: 'አሁን ደውል',
+        total_dials: 'ጠቅላላ ጥሪዎች',
+        most_used: 'በብዛት ጥቅም ላይ የዋለ',
+        search_history: 'ግብይቶችን ይፈልጉ...',
         all_filters: 'ሁሉም',
-        reset_onboarding: 'የመጀመሪያ መግቢያን መልስ',
+        reset_onboarding: 'መግቢያን እንደገና አስጀምር',
+        onboarding_title_1: 'ወደ ኢትዮ USSD እንኳን በደህና መጡ',
+        onboarding_desc_1: 'በኢትዮጵያ የባንክ እና የቴሌኮም USSD አገልግሎቶችን ለማስተዳደር ምርጥ መንገድ።',
+        onboarding_title_2: 'የማስጀመሪያ ሁነታ',
+        onboarding_desc_2: 'ደህንነትዎን እናስቀድማለን። መተግበሪያችን USSD ኮዱን ያዘጋጃል፣ እርስዎም በደህንነት በስልክዎ ውስጥ ይደውላሉ።',
+        onboarding_title_3: 'ቀላል እና ፈጣን',
+        onboarding_desc_3: 'ኮዶችን ማስታወስ አያስፈልግም። ባንክዎን ይፈልጉ፣ ማስጀመሪያን ይንኩ፣ እና ዝግጁ ነዎት።',
     },
     om: {
         welcome: 'Baga Nagaan Dhuftan',
@@ -96,51 +102,62 @@ i18n.translations = {
         all_banks: 'Baankiiwwan Hunda',
         clear_history: 'Seenaa Haqii',
         language: 'Afaan',
-        about: 'Waa\'ee Keenya',
+        about: 'Waa\'ee Appii',
         security: 'Nageenya',
-        biometric_lock: 'Biometric Lock',
-        unlock_with_biometrics: 'Biometric dhaan bani',
+        biometric_lock: 'Cuftuu Baayoomeetrikii',
+        unlock_with_biometrics: 'Baayoomeetrikiin Bani',
         unlock_app: 'Appii Bani',
-        locked: 'Cufaa dha',
-        authenticate_msg: 'Maaloo, eenyummaa keessan mirkaneessaa.',
+        locked: 'Cufameera',
+        authenticate_msg: 'Daldala baankii keessanii argachuuf mirkaneessaa.',
         dial_root: 'Koodii Jalqabaa Bilbili',
         dial_full: 'Koodii Guutuu Bilbili',
-        enter_amount: 'Hamma Galchi',
-        enter_account: 'Lakkoofsa Herregaa Galchi',
-        enter_pin: 'PIN Galchi',
+        enter_amount: 'Hamma Galchaa',
+        enter_account: 'Lakkoofsa Herregaa Galchaa',
+        enter_pin: 'PIN Galchaa',
         save: 'Olkaa\'i',
-        cancel: 'Haqi',
-        transaction_saved: 'Daddabran Olka\'aameera',
+        cancel: 'Haqii',
+        transaction_saved: 'Daldalli Olka\'ameera',
         history_cleared: 'Seenaan Haqameera',
         confirm_clear: 'Seenaa hunda haquu barbaadduu?',
-        no_history: 'Seenaan homaayyuu hin jiru.',
-        no_favorites: 'Jaallatamaan homaayyuu hin jiru.',
-        version: 'Maxxansa',
-        developed_by: 'Antigravity dhaan kan hojjetame',
-        select_bank: 'Baankii Filadhu',
-        ready_to_call: 'Koodii bilbiluuf qophiidhaa?',
-        launch_button: 'Bilbili',
-        total_dials: 'Waliigala',
-        most_used: 'Baay\'ee kan fayyidame',
-        search_history: 'Barbaadi...',
+        no_history: 'Ammallee daldalli hin jiru.',
+        no_favorites: 'Ammallee jaallatamaan hin jiru.',
+        version: 'Gosa',
+        developed_by: 'Kan Hojjetame',
+        select_bank: 'Baankii ykn Tajaajila Filadhu',
+        ready_to_call: 'Bilbiluuf qophii dha?',
+        launch_button: 'Amma Bilbili',
+        total_dials: 'Bilbila Waliigalaa',
+        most_used: 'Baay\'ee Kan Itti Fayyadame',
+        search_history: 'Daldala barbaadi...',
         all_filters: 'Hunda',
-        reset_onboarding: 'Onboarding Deebisi',
+        reset_onboarding: 'Seensa Jalqabaa Deebisii',
+        onboarding_title_1: 'Gara Ethio USSD Baga Nagaan Dhuftan',
+        onboarding_desc_1: 'Itoophiyaa keessatti tajaajila baankii fi teelekoomii USSD bulchuuf karaa gaarii.',
+        onboarding_title_2: 'Haalata Ka\'umsaa',
+        onboarding_desc_2: 'Nageenya keessan dursa kennina. Appiin keenya koodii USSD qopheessa, isin immoo bilbila keessan nagaan itti xumurattu.',
+        onboarding_title_3: 'Salphaa fi Saffisaa',
+        onboarding_desc_3: 'Koodii yaadachuu hin barbaachisu. Baankii keessan barbaadaa, ka\'umsa tuqaa, qophii dha.',
     },
 };
 
-// Set fallback
-i18n.fallbacks = true;
+const i18n = new I18n(translations);
+i18n.enableFallback = true;
 i18n.defaultLocale = 'en';
 
 export { i18n };
 
 // Async language loader
 export const loadLanguage = async () => {
-    const saved = await AsyncStorage.getItem('user-language');
-    if (saved) {
-        i18n.locale = saved;
-    } else {
-        i18n.locale = Localization.locale.split('-')[0] || 'en';
+    try {
+        const saved = await AsyncStorage.getItem('user-language');
+        if (saved) {
+            i18n.locale = saved;
+        } else {
+            i18n.locale = Localization.locale.split('-')[0] || 'en';
+        }
+    } catch (e) {
+        console.error('Failed to load language:', e);
+        i18n.locale = 'en';
     }
 };
 
