@@ -148,3 +148,5 @@ For issues or questions:
 ---
 
 **© 2026 Hawi Tariku. All rights reserved.**
+
+⭐ Please Star this repo if you find it useful!
